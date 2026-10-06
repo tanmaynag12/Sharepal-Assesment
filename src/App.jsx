@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addMonths, format, subMonths } from "date-fns";
-import { CalendarDays, CirclePercent, Info, X } from "lucide-react";
+import { CalendarDays, CirclePercent, Info, MessageCircle, X } from "lucide-react";
 import { SharepalNavigationBar } from "./components/sharepal-date-selector/SharepalNavigationBar";
 import { SharepalCategoryTabs } from "./components/sharepal-date-selector/SharepalCategoryTabs";
 import { SharepalGamingProductGrid } from "./components/sharepal-date-selector/SharepalGamingProductGrid";
@@ -23,6 +23,30 @@ export default function App() {
   const [month, setMonth] = useState(new Date(2026, 9, 1));
   const [gamingSelection, setGamingSelection] = useState("All");
   const [targetProductId, setTargetProductId] = useState(null);
+  const [navigationHidden, setNavigationHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const updateNavigationVisibility = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY.current;
+
+      if (currentScrollY <= 20) {
+        setNavigationHidden(false);
+      } else if (scrollingDown && currentScrollY > 85) {
+        setNavigationHidden(true);
+      } else if (!scrollingDown) {
+        setNavigationHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", updateNavigationVisibility, {
+      passive: true,
+    });
+    return () => window.removeEventListener("scroll", updateNavigationVisibility);
+  }, []);
 
   const rentalDays = getRentalDays(deliveryDate, pickupDate);
 
@@ -46,6 +70,7 @@ export default function App() {
     <main className="min-h-screen bg-background font-sans text-foreground">
       {/* 1. Navigation Bar with city dropdown */}
       <SharepalNavigationBar
+        navigationHidden={navigationHidden}
         deliveryDate={deliveryDate}
         pickupDate={pickupDate}
         onSelectDates={() => setOpen(true)}
@@ -57,6 +82,7 @@ export default function App() {
 
       {/* 2. Category tabs with dropdowns */}
       <SharepalCategoryTabs
+        navigationHidden={navigationHidden}
         gamingSelection={gamingSelection}
         onGamingSelectionChange={setGamingSelection}
       />
@@ -188,6 +214,22 @@ export default function App() {
           </section>
         </div>
       )}
+
+      <button
+        type="button"
+        className="sharepal-chatbot"
+        aria-label="Open chat support"
+      >
+        <span className="sharepal-chatbot-accent" aria-hidden="true" />
+        <span className="sharepal-chatbot-bubble" aria-hidden="true">
+          <MessageCircle size={48} fill="currentColor" strokeWidth={0} />
+          <span className="sharepal-chatbot-dots">
+            <span />
+            <span />
+            <span />
+          </span>
+        </span>
+      </button>
     </main>
   );
 }

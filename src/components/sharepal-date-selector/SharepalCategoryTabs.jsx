@@ -56,6 +56,7 @@ const categoryMenus = {
 };
 
 export function SharepalCategoryTabs({
+  navigationHidden = false,
   gamingSelection = "All",
   onGamingSelectionChange,
 }) {
@@ -87,7 +88,12 @@ export function SharepalCategoryTabs({
   };
 
   return (
-    <div className="sharepal-category-menu" ref={menuRef}>
+    <div
+      className={`sharepal-category-menu${
+        navigationHidden ? " sharepal-category-menu-header-hidden" : ""
+      }`}
+      ref={menuRef}
+    >
       <nav className="sharepal-category-tabs" aria-label="Product categories">
         {Object.keys(categoryMenus).map((category) => {
           const isActive = category === (openCategory || "Gaming");

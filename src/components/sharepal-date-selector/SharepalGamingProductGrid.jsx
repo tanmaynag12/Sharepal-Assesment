@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Gamepad2, Star } from "lucide-react";
 import productData from "../../data/gammingproducts.json";
 import ps5Image from "../../assets/ps5-category.webp";
@@ -58,6 +58,7 @@ export function SharepalGamingProductGrid({
   onSelectionChange,
   targetProductId,
 }) {
+  const [waitlistedProducts, setWaitlistedProducts] = useState(() => new Set());
   const activeSelection = selection;
   const filteredProducts = products.filter((product) =>
     matchesSelection(product, activeSelection),
@@ -73,6 +74,14 @@ export function SharepalGamingProductGrid({
     activeSelection === "All"
       ? "Gaming Gadgets On Rent"
       : `${sidebarCategories.find((category) => category.id === activeSelection)?.label} On Rent`;
+
+  const joinWaitlist = (productId) => {
+    setWaitlistedProducts((current) => {
+      const next = new Set(current);
+      next.add(productId);
+      return next;
+    });
+  };
 
   return (
     <div className="sharepal-main-container">
@@ -184,18 +193,43 @@ export function SharepalGamingProductGrid({
               <span>{formatBooked(product.booked_count)} booked</span>
             </div>
 
+            {product.out_of_stock && (
+              <div className="sharepal-product-waitlist">
+                <p>
+                  We&apos;ll notify you when this product becomes available.
+                </p>
+                <div
+                  className="sharepal-product-waitlist-track"
+                  aria-label="Availability updates in progress"
+                >
+                  <span />
+                </div>
+              </div>
+            )}
+
             <div className="sharepal-product-footer">
-              <p className="sharepal-product-price">
-                ₹{product.per_day_rent}
-                <span>/day</span>
-              </p>
-              <button
-                type="button"
-                className="sharepal-product-button"
-                disabled={product.out_of_stock}
-              >
-                {product.out_of_stock ? "Notify Me" : "Add to Cart"}
-              </button>
+              {product.out_of_stock ? (
+                <button
+                  type="button"
+                  className="sharepal-product-waitlist-button"
+                  onClick={() => joinWaitlist(product.id)}
+                  disabled={waitlistedProducts.has(product.id)}
+                >
+                  {waitlistedProducts.has(product.id)
+                    ? "You're on the list"
+                    : "Join Waitlist"}
+                </button>
+              ) : (
+                <>
+                  <p className="sharepal-product-price">
+                    ₹{product.per_day_rent}
+                    <span>/day</span>
+                  </p>
+                  <button type="button" className="sharepal-product-button">
+                    Add to Cart
+                  </button>
+                </>
+              )}
             </div>
           </article>
             ))}

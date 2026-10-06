@@ -98,9 +98,20 @@ a {
 
 /* 3. Navigation */
 .sharepal-navigation {
+  position: sticky;
+  top: 0;
+  z-index: 19;
   width: 100%;
   background: var(--navigation);
   color: var(--navigation-foreground);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+.sharepal-navigation-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
 }
 .sharepal-navigation-inner {
   max-width: 1220px;
@@ -111,6 +122,9 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 .sharepal-navigation-logo {
   display: flex;
@@ -600,6 +614,179 @@ a {
     background: #baff00;
     color: #071446;
   }
+
+  .sharepal-login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgb(15 23 42 / 55%);
+    backdrop-filter: blur(7px);
+  }
+
+  .sharepal-login-dialog {
+    position: relative;
+    width: min(512px, 100%);
+    padding: 62px 72px 24px;
+    border-radius: 42px;
+    background: #f8fafc;
+    box-shadow: 0 24px 60px rgb(15 23 42 / 28%);
+    text-align: center;
+    animation: sharepal-login-pop-in 180ms ease-out;
+  }
+
+  .sharepal-login-close {
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    color: #475569;
+    cursor: pointer;
+  }
+
+  .sharepal-login-logo {
+    width: 136px;
+    height: auto;
+    margin: 0 auto 28px;
+  }
+
+  .sharepal-login-dialog h2 {
+    color: #111827;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .sharepal-login-subtitle {
+    margin-top: 10px;
+    color: #1f2937;
+    font-size: 14px;
+  }
+
+  .sharepal-login-phone {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    margin-top: 26px;
+    overflow: hidden;
+    border: 1px solid #d7dee8;
+    border-radius: 11px;
+    background: #f8fafc;
+    text-align: left;
+  }
+
+  .sharepal-login-phone span {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    padding: 0 13px;
+    border-right: 1px solid #d7dee8;
+    background: #eef2f6;
+    color: #1f2937;
+    font-size: 14px;
+  }
+
+  .sharepal-login-phone input {
+    width: 100%;
+    height: 100%;
+    padding: 0 14px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #1f2937;
+    font-size: 14px;
+  }
+
+  .sharepal-login-phone input::placeholder {
+    color: #64748b;
+  }
+
+  .sharepal-login-coupon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 15px 14px;
+    border: 1px solid #e1ead4;
+    border-radius: 24px;
+    background: linear-gradient(110deg, #eef5ff, #f3ffe5);
+    color: #1f2937;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .sharepal-login-coupon > span {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #dbeafe;
+    font-size: 22px;
+  }
+
+  .sharepal-login-coupon p {
+    margin: 0;
+  }
+
+  .sharepal-login-coupon strong {
+    color: #ec4899;
+  }
+
+  .sharepal-login-otp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 50px;
+    margin-top: 38px;
+    border: 0;
+    border-radius: 999px;
+    background: #e8edf0;
+    color: #aeb7c0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .sharepal-login-otp:not(:disabled) {
+    background: var(--action);
+    color: var(--primary-foreground);
+    cursor: pointer;
+  }
+
+  .sharepal-login-terms {
+    margin: 18px auto 0;
+    max-width: 330px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .sharepal-login-terms a {
+    color: #1d4ed8;
+    font-weight: 600;
+  }
+
+  @keyframes sharepal-login-pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
   @media (max-width: 640px) {
     .sharepal-account-dialog {
       width: 100%;
@@ -614,6 +801,11 @@ a {
     }
     .sharepal-account-partner {
       margin: 20px;
+    }
+
+    .sharepal-login-dialog {
+      padding: 54px 22px 22px;
+      border-radius: 28px;
     }
   }
 
@@ -966,6 +1158,70 @@ a {
   margin-top: auto;
   padding-top: 16px;
 }
+
+.sharepal-product-waitlist {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 13px;
+  background: #f1ffd8;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.sharepal-product-waitlist p {
+  margin: 0 0 8px;
+}
+
+.sharepal-product-waitlist-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #d9d9d9;
+}
+
+.sharepal-product-waitlist-track span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  border-radius: inherit;
+  background: #a3ff00;
+  animation: sharepal-waitlist-progress 2.4s ease-in-out infinite;
+}
+
+.sharepal-product-waitlist-button {
+  width: 100%;
+  min-height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: #a3ff00;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sharepal-product-waitlist-button:hover {
+  background: #91eb00;
+}
+
+.sharepal-product-waitlist-button:disabled {
+  background: #d9f99d;
+  color: #365314;
+  cursor: default;
+}
+
+@keyframes sharepal-waitlist-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(260%);
+  }
+}
+
 .sharepal-product-price {
   color: var(--foreground);
   font-size: 18px;
@@ -1716,6 +1972,162 @@ button[aria-label="Next month"] svg {
   background: #baff00;
   color: #071446;
 }
+
+/* Login modal */
+.sharepal-login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(15 23 42 / 55%);
+  backdrop-filter: blur(7px);
+}
+.sharepal-login-dialog {
+  position: relative;
+  width: min(512px, 100%);
+  padding: 62px 72px 24px;
+  border-radius: 42px;
+  background: #f8fafc;
+  box-shadow: 0 24px 60px rgb(15 23 42 / 28%);
+  text-align: center;
+  animation: sharepal-login-pop-in 180ms ease-out;
+}
+.sharepal-login-close {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #475569;
+  cursor: pointer;
+}
+.sharepal-login-logo {
+  width: 136px;
+  height: auto;
+  margin: 0 auto 28px;
+}
+.sharepal-login-dialog h2 {
+  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+}
+.sharepal-login-subtitle {
+  margin-top: 10px;
+  color: #1f2937;
+  font-size: 14px;
+}
+.sharepal-login-phone {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  margin-top: 26px;
+  overflow: hidden;
+  border: 1px solid #d7dee8;
+  border-radius: 11px;
+  background: #f8fafc;
+  text-align: left;
+}
+.sharepal-login-phone span {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  padding: 0 13px;
+  border-right: 1px solid #d7dee8;
+  background: #eef2f6;
+  color: #1f2937;
+  font-size: 14px;
+}
+.sharepal-login-phone input {
+  width: 100%;
+  height: 100%;
+  padding: 0 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1f2937;
+  font-size: 14px;
+}
+.sharepal-login-phone input::placeholder {
+  color: #64748b;
+}
+.sharepal-login-coupon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 15px 14px;
+  border: 1px solid #e1ead4;
+  border-radius: 24px;
+  background: linear-gradient(110deg, #eef5ff, #f3ffe5);
+  color: #1f2937;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.sharepal-login-coupon > span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #dbeafe;
+  font-size: 22px;
+}
+.sharepal-login-coupon p {
+  margin: 0;
+}
+.sharepal-login-coupon strong {
+  color: #ec4899;
+}
+.sharepal-login-otp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 50px;
+  margin-top: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: #e8edf0;
+  color: #aeb7c0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.sharepal-login-otp:not(:disabled) {
+  background: var(--action);
+  color: var(--primary-foreground);
+  cursor: pointer;
+}
+.sharepal-login-terms {
+  margin: 18px auto 0;
+  max-width: 330px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.sharepal-login-terms a {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+@keyframes sharepal-login-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 @media (max-width: 640px) {
   .sharepal-account-dialog {
     width: 100%;
@@ -1758,8 +2170,23 @@ button[aria-label="Next month"] svg {
 
 /* Category dropdowns */
 .sharepal-category-menu {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 85px;
+  z-index: 20;
+  transition: top 220ms ease;
+}
+.sharepal-category-menu-header-hidden {
+  top: 0;
+}
+
+@media (max-width: 1100px) {
+  .sharepal-category-menu {
+    top: 131px;
+  }
+
+  .sharepal-category-menu-header-hidden {
+    top: 0;
+  }
 }
 .sharepal-category-dropdown {
   position: absolute;
@@ -1929,9 +2356,95 @@ button[aria-label="Next month"] svg {
 
 .sharepal-navigation-logo img {
   display: block;
-  width: 160px;
-  height: auto;
-  object-fit: contain;
+}
+
+.sharepal-chatbot {
+  position: fixed;
+  right: 48px;
+  bottom: 44px;
+  z-index: 30;
+  width: 64px;
+  height: 64px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 5px 8px rgb(15 23 42 / 18%));
+  animation: sharepal-chatbot-float 2.8s ease-in-out infinite;
+}
+
+.sharepal-chatbot-accent {
+  position: absolute;
+  right: 5px;
+  bottom: 7px;
+  width: 31px;
+  height: 31px;
+  border-radius: 50% 50% 50% 8px;
+  background: #72ed00;
+  transform: rotate(-18deg);
+  animation: sharepal-chatbot-pulse 2.2s ease-out infinite;
+}
+
+.sharepal-chatbot-bubble {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #173fe5;
+}
+
+.sharepal-chatbot-dots {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: -1px;
+}
+
+.sharepal-chatbot-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.sharepal-chatbot:hover {
+  transform: translateY(-2px);
+  animation-play-state: paused;
+}
+
+.sharepal-chatbot:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 4px;
+}
+
+@keyframes sharepal-chatbot-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-2deg);
+  }
+}
+
+@keyframes sharepal-chatbot-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(114 237 0 / 0%);
+  }
+  45% {
+    box-shadow: 0 0 0 9px rgb(114 237 0 / 25%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sharepal-chatbot,
+  .sharepal-chatbot-accent {
+    animation: none;
+  }
 }
 
 .sharepal-sidebar-icon-box {
