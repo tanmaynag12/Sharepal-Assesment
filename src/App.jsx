@@ -6,6 +6,7 @@ import { SharepalDateField } from "./components/sharepal-date-selector/SharepalD
 import { SharepalNavigationBar } from "./components/sharepal-date-selector/SharepalNavigationBar";
 import { SharepalRentalCalendar } from "./components/sharepal-date-selector/SharepalRentalCalendar";
 import { Button } from "./components/ui/button";
+import { SharepalGamingProductGrid } from "./components/sharepal-date-selector/SharepalGamingProductGrid";
 import {
   getChargeablePeriod,
   getRentalDays,
@@ -47,6 +48,7 @@ export default function App() {
         onSelectDates={() => setOpen(true)}
       />
       <SharepalCategoryTabs />
+      <SharepalGamingProductGrid />
 
       {open && (
         <div className="fixed inset-0 z-20 grid place-items-center overflow-y-auto bg-overlay/65 p-3 backdrop-blur-[3px] sm:p-7">
