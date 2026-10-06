@@ -47,11 +47,17 @@
 *::after {
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
   display: block;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
   background: var(--background);
   color: var(--foreground);
 }
@@ -60,6 +66,7 @@ body {
   max-width: none;
   margin: 0;
   padding: 0;
+  overflow-x: clip;
   text-align: left;
 }
 main {
@@ -236,6 +243,9 @@ a {
   gap: 80px;
   padding: 0 20px;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   background: var(--background);
 }
 .sharepal-category-tab {
@@ -290,10 +300,15 @@ a {
   align-items: center;
   gap: 16px;
   position: sticky;
-  top: 84px;
+  top: 152px;
+  align-self: start;
+  z-index: 2;
   border-radius: 12px;
   background: var(--card);
   box-shadow: var(--shadow-sidebar);
+}
+.sharepal-sidebar-header-hidden {
+  top: 68px;
 }
 .sharepal-sidebar-item {
   display: flex;
@@ -344,6 +359,9 @@ a {
   height: auto;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
   border-radius: 24px 0 0 24px;
@@ -471,6 +489,7 @@ a {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   font-size: 13px;
 }
@@ -513,6 +532,9 @@ a {
     max-width: 610px;
     flex-direction: column;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     border-radius: 24px 0 0 24px;
     background: var(--panel);
     box-shadow: var(--shadow-modal);
@@ -689,15 +711,23 @@ a {
     text-align: left;
   }
 
-  .sharepal-login-phone span {
+  .sharepal-login-phone select {
     display: grid;
     place-items: center;
     align-self: stretch;
-    padding: 0 13px;
+    width: 68px;
+    min-width: 68px;
+    flex-shrink: 0;
+    padding: 0 8px 0 12px;
     border-right: 1px solid #d7dee8;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
     background: #eef2f6;
     color: #1f2937;
     font-size: 14px;
+    outline: 0;
+    cursor: pointer;
   }
 
   .sharepal-login-phone input {
@@ -1076,6 +1106,57 @@ a {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px 32px;
+}
+.sharepal-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 36px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+@media (min-width: 801px) {
+  .sharepal-pagination {
+    position: relative;
+    left: -76px;
+  }
+}
+.sharepal-pagination-button {
+  display: grid;
+  min-width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--foreground);
+  font-weight: 600;
+}
+.sharepal-pagination-arrow {
+  font-size: 22px;
+  line-height: 1;
+}
+.sharepal-pagination-active {
+  border-color: var(--action);
+  background: var(--action);
+  color: var(--primary-foreground);
+}
+.sharepal-pagination-disabled {
+  color: var(--disabled-foreground);
+  background: var(--panel);
+}
+
+.sharepal-product-section + .sharepal-product-section {
+  margin-top: 48px;
+}
+
+.sharepal-product-section-title {
+  margin: 0 0 20px;
+  color: var(--foreground);
+  font-size: 22px;
+  font-weight: 800;
   align-items: stretch;
   padding: 0 12px;
 }
@@ -1251,6 +1332,9 @@ a {
 }
 .sharepal-product-button:hover {
   background: var(--action-hover);
+}
+.sharepal-product-vote-button {
+  margin: 0 auto;
 }
 .sharepal-product-button:disabled {
   background: var(--disabled);
@@ -2192,6 +2276,10 @@ button[aria-label="Next month"] svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
+  .sharepal-pagination {
+    gap: 6px;
+    margin-top: 28px;
+  }
   .sharepal-product-card {
     padding: 10px;
   }
@@ -2527,15 +2615,23 @@ button[aria-label="Next month"] svg {
   background: #f8fafc;
   text-align: left;
 }
-.sharepal-login-phone span {
+.sharepal-login-phone select {
   display: grid;
   place-items: center;
   align-self: stretch;
-  padding: 0 13px;
+  width: 68px;
+  min-width: 68px;
+  flex-shrink: 0;
+  padding: 0 8px 0 12px;
   border-right: 1px solid #d7dee8;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
   background: #eef2f6;
   color: #1f2937;
   font-size: 14px;
+  outline: 0;
+  cursor: pointer;
 }
 .sharepal-login-phone input {
   width: 100%;
@@ -2705,7 +2801,10 @@ button[aria-label="Next month"] svg {
   grid-template-columns: repeat(2, minmax(150px, 1fr));
 }
 .sharepal-category-dropdown-outdoor {
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  width: min(900px, calc(100vw - 32px));
+  grid-template-columns: repeat(3, minmax(190px, 1fr));
+  grid-template-rows: repeat(6, minmax(40px, auto));
+  grid-auto-flow: column;
 }
 .sharepal-category-dropdown-entertainment {
   width: min(240px, calc(100vw - 32px));
@@ -2748,7 +2847,11 @@ button[aria-label="Next month"] svg {
   .sharepal-popular-cities { grid-template-columns: repeat(3, 1fr); }
   .sharepal-other-cities { grid-template-columns: repeat(2, 1fr); }
   .sharepal-category-dropdown-photography,
-  .sharepal-category-dropdown-outdoor { grid-template-columns: repeat(2, 1fr); }
+  .sharepal-category-dropdown-outdoor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
 }
 
 /* Fix Calendar Grid & 2-Month Columns without Tailwind */
@@ -2965,6 +3068,17 @@ button[aria-label="Next month"] svg {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .sharepal-category-tabs,
+  .sharepal-search-dialog,
+  .sharepal-account-dialog,
+  .sharepal-sidebar {
+    scroll-behavior: auto;
+  }
+
   .sharepal-sidebar-icon-box img {
     transition: none;
   }
@@ -2973,15 +3087,22 @@ button[aria-label="Next month"] svg {
 /* Keep the category list usable while the product page continues scrolling. */
 @media (min-width: 801px) {
   .sharepal-sidebar {
-    max-height: calc(100vh - 100px);
+    height: min(500px, calc(100vh - 168px));
+    max-height: none;
     overflow-y: auto;
     overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
 
   .sharepal-sidebar::-webkit-scrollbar {
     display: none;
+  }
+
+  .sharepal-sidebar-header-hidden {
+    height: min(500px, calc(100vh - 84px));
   }
 }
 

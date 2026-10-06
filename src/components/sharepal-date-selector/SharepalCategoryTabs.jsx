@@ -61,7 +61,44 @@ export function SharepalCategoryTabs({
   onGamingSelectionChange,
 }) {
   const [openCategory, setOpenCategory] = useState();
+  const [dropdownLeft, setDropdownLeft] = useState("50%");
   const menuRef = useRef(null);
+  const dropdownRef = useRef(null);
+  const tabRefs = useRef({});
+
+  useEffect(() => {
+    if (!openCategory) return;
+
+    const updateDropdownPosition = () => {
+      const menu = menuRef.current;
+      const tab = tabRefs.current[openCategory];
+      const dropdown = dropdownRef.current;
+      if (!menu || !tab || !dropdown) return;
+
+      const menuBounds = menu.getBoundingClientRect();
+      const tabBounds = tab.getBoundingClientRect();
+      const tabCenter = tabBounds.left + tabBounds.width / 2 - menuBounds.left;
+      const dropdownWidth = dropdown.offsetWidth;
+      const edgePadding = 16;
+      const minimumCenter = dropdownWidth / 2 + edgePadding;
+      const maximumCenter = menuBounds.width - dropdownWidth / 2 - edgePadding;
+      const boundedCenter = Math.min(
+        Math.max(tabCenter, minimumCenter),
+        maximumCenter,
+      );
+
+      setDropdownLeft(`${boundedCenter}px`);
+    };
+
+    updateDropdownPosition();
+    window.addEventListener("resize", updateDropdownPosition);
+    window.addEventListener("scroll", updateDropdownPosition, true);
+
+    return () => {
+      window.removeEventListener("resize", updateDropdownPosition);
+      window.removeEventListener("scroll", updateDropdownPosition, true);
+    };
+  }, [openCategory]);
 
   useEffect(() => {
     const closeMenu = (event) => {
@@ -101,6 +138,9 @@ export function SharepalCategoryTabs({
             <button
               type="button"
               key={category}
+              ref={(element) => {
+                tabRefs.current[category] = element;
+              }}
               className={
                 isActive
                   ? "sharepal-category-tab sharepal-category-tab-active"
@@ -121,8 +161,10 @@ export function SharepalCategoryTabs({
 
       {openCategory && (
         <div
+          ref={dropdownRef}
           className={`sharepal-category-dropdown sharepal-category-dropdown-${openCategory.toLowerCase()}`}
           role="menu"
+          style={{ left: dropdownLeft }}
         >
           {categoryMenus[openCategory]?.map((item) => (
             <button

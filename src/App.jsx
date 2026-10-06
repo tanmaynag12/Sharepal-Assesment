@@ -24,6 +24,7 @@ export default function App() {
   const [gamingSelection, setGamingSelection] = useState("All");
   const [targetProductId, setTargetProductId] = useState(null);
   const [navigationHidden, setNavigationHidden] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -78,6 +79,8 @@ export default function App() {
           setGamingSelection("All");
           setTargetProductId(product.id);
         }}
+        loginOpen={loginOpen}
+        onLoginOpenChange={setLoginOpen}
       />
 
       {/* 2. Category tabs with dropdowns */}
@@ -92,6 +95,7 @@ export default function App() {
         selection={gamingSelection}
         onSelectionChange={setGamingSelection}
         targetProductId={targetProductId}
+        navigationHidden={navigationHidden}
       />
 
       {/* 4. Calendar dialog */}
@@ -219,6 +223,7 @@ export default function App() {
         type="button"
         className="sharepal-chatbot"
         aria-label="Open chat support"
+        onClick={() => setLoginOpen(true)}
       >
         <span className="sharepal-chatbot-accent" aria-hidden="true" />
         <span className="sharepal-chatbot-bubble" aria-hidden="true">

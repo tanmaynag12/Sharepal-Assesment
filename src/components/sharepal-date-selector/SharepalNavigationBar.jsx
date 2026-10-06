@@ -15,6 +15,7 @@ import {
 import { format } from "date-fns";
 import sharepalLogo from "../../assets/sharepal-navigation-logo.png";
 import productData from "../../data/gammingproducts.json";
+import { SharepalLoginModal } from "./SharepalLoginModal";
 
 const popularCities = [
   "Delhi",
@@ -33,13 +34,13 @@ export function SharepalNavigationBar({
   pickupDate,
   onSelectDates,
   onProductSelect,
+  loginOpen,
+  onLoginOpenChange,
 }) {
   const [city, setCity] = useState("Bangalore");
   const [citySelectorOpen, setCitySelectorOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllSearchResults, setShowAllSearchResults] = useState(false);
 
@@ -60,7 +61,7 @@ export function SharepalNavigationBar({
       if (event.key === "Escape") {
         setSearchOpen(false);
         setAccountOpen(false);
-        setLoginOpen(false);
+        onLoginOpenChange(false);
         setShowAllSearchResults(false);
       }
     };
@@ -69,7 +70,7 @@ export function SharepalNavigationBar({
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [searchOpen, accountOpen, loginOpen]);
+  }, [searchOpen, accountOpen, loginOpen, onLoginOpenChange]);
 
   const chooseCity = (nextCity) => {
     setCity(nextCity);
@@ -381,7 +382,7 @@ export function SharepalNavigationBar({
                 className="sharepal-account-login"
                 onClick={() => {
                   setAccountOpen(false);
-                  setLoginOpen(true);
+                  onLoginOpenChange(true);
                 }}
               >
                 Log In <ArrowRight size={18} />
@@ -423,77 +424,10 @@ export function SharepalNavigationBar({
         </div>
       )}
 
-      {loginOpen && (
-        <div
-          className="sharepal-login-overlay"
-          onMouseDown={() => setLoginOpen(false)}
-        >
-          <section
-            className="sharepal-login-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="login-dialog-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="sharepal-login-close"
-              aria-label="Close login"
-              onClick={() => setLoginOpen(false)}
-            >
-              <X size={24} />
-            </button>
-
-            <img
-              className="sharepal-login-logo"
-              src={sharepalLogo}
-              alt="SharePal"
-            />
-            <h2 id="login-dialog-title">Login/Signup to Your Account</h2>
-            <p className="sharepal-login-subtitle">
-              Enter your WhatsApp number to continue
-            </p>
-
-            <label className="sharepal-login-phone">
-              <span>+91⌄</span>
-              <input
-                type="tel"
-                inputMode="numeric"
-                maxLength={10}
-                placeholder="Enter your number"
-                value={phoneNumber}
-                onChange={(event) =>
-                  setPhoneNumber(event.target.value.replace(/\D/g, ""))
-                }
-                aria-label="WhatsApp number"
-              />
-            </label>
-
-            <div className="sharepal-login-coupon">
-              <span aria-hidden="true">🎉</span>
-              <p>
-                <strong>Use code SHAREPAL & get 10%</strong> on orders above
-                ₹1500. Maximum discount: ₹300
-                <br />
-                Use Coupon - SHAREPAL
-              </p>
-            </div>
-
-            <button
-              type="button"
-              className="sharepal-login-otp"
-              disabled={phoneNumber.length !== 10}
-            >
-              Get OTP <ArrowRight size={20} />
-            </button>
-            <p className="sharepal-login-terms">
-              By continuing, you agree to the{" "}
-              <a href="#terms">Terms of Service</a> and acknowledge the{" "}
-              <a href="#privacy">Privacy Policy</a>.
-            </p>
-          </section>
-        </div>
-      )}
+      <SharepalLoginModal
+        open={loginOpen}
+        onClose={() => onLoginOpenChange(false)}
+      />
     </>
   );
 }
