@@ -1,0 +1,30 @@
+.app {
+  width: min(100% - 3rem, 64rem);
+  margin: 0 auto;
+  padding: 8rem 0;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: #6366f1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(2.75rem, 8vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.intro {
+  max-width: 32rem;
+  margin: 1.5rem 0 0;
+  color: #4b5563;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
