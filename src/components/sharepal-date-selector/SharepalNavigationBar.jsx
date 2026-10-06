@@ -171,7 +171,7 @@ export function SharepalNavigationBar({
               <span className="sharepal-navigation-user">
                 <UserRound size={20} />
               </span>
-              <span>Hi, User</span>
+              <span>Hi, Pal</span>
             </button>
           </div>
         </nav>
@@ -376,7 +376,7 @@ export function SharepalNavigationBar({
             onMouseDown={(event) => event.stopPropagation()}
           >
             <div className="sharepal-account-header">
-              <h2 id="account-dialog-title">Hi, User!</h2>
+              <h2 id="account-dialog-title">Hi, Pal!</h2>
               <button
                 type="button"
                 className="sharepal-account-login"
