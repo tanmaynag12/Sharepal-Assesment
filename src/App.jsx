@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { format, addMonths, subMonths } from "date-fns";
+import { addMonths, format, subMonths } from "date-fns";
 import { CalendarDays, CirclePercent, Info, X } from "lucide-react";
-
+import { useState } from "react";
+import { SharepalCategoryTabs } from "./components/sharepal-date-selector/SharepalCategoryTabs";
 import { SharepalDateField } from "./components/sharepal-date-selector/SharepalDateField";
+import { SharepalNavigationBar } from "./components/sharepal-date-selector/SharepalNavigationBar";
 import { SharepalRentalCalendar } from "./components/sharepal-date-selector/SharepalRentalCalendar";
 import { Button } from "./components/ui/button";
 import {
@@ -16,32 +17,37 @@ const initialDeliveryDate = new Date(2026, 9, 17);
 export default function App() {
   const [open, setOpen] = useState(true);
   const [deliveryDate, setDeliveryDate] = useState(initialDeliveryDate);
-  const [pickupDate, setPickupDate] = useState(null);
+  const [pickupDate, setPickupDate] = useState();
   const [activeField, setActiveField] = useState("pickup");
   const [month, setMonth] = useState(new Date(2026, 9, 1));
 
   const rentalDays = getRentalDays(deliveryDate, pickupDate);
-
   const chooseDate = (date) => {
     if (activeField === "delivery") {
       setDeliveryDate(date);
       if (pickupDate && !isValidPickup(date, pickupDate)) {
-        setPickupDate(null);
+        setPickupDate(undefined);
       }
       setActiveField("pickup");
       return;
     }
-
     if (isValidPickup(deliveryDate, date)) {
       setPickupDate(date);
     } else {
       setDeliveryDate(date);
-      setPickupDate(null);
+      setPickupDate(undefined);
     }
   };
 
   return (
     <main className="min-h-screen bg-background font-sans text-foreground">
+      <SharepalNavigationBar
+        deliveryDate={deliveryDate}
+        pickupDate={pickupDate}
+        onSelectDates={() => setOpen(true)}
+      />
+      <SharepalCategoryTabs />
+
       {open && (
         <div className="fixed inset-0 z-20 grid place-items-center overflow-y-auto bg-overlay/65 p-3 backdrop-blur-[3px] sm:p-7">
           <section
@@ -148,7 +154,6 @@ export default function App() {
                   month={month}
                   deliveryDate={deliveryDate}
                   pickupDate={pickupDate}
-                  activeField={activeField}
                   onSelect={chooseDate}
                   onPrevious={() => setMonth((value) => subMonths(value, 1))}
                   onNext={() => setMonth((value) => addMonths(value, 1))}

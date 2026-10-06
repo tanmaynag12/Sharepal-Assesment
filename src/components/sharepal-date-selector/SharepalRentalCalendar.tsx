@@ -22,7 +22,6 @@ export function SharepalRentalCalendar({
   month,
   deliveryDate,
   pickupDate,
-  activeField,
   onSelect,
   onPrevious,
   onNext,
@@ -30,7 +29,6 @@ export function SharepalRentalCalendar({
   month: Date;
   deliveryDate: Date;
   pickupDate: Date | undefined;
-  activeField: "delivery" | "pickup";
   onSelect: (date: Date) => void;
   onPrevious: () => void;
   onNext: () => void;
@@ -62,7 +60,6 @@ export function SharepalRentalCalendar({
             month={displayMonth}
             deliveryDate={deliveryDate}
             pickupDate={pickupDate}
-            activeField={activeField}
             onSelect={onSelect}
           />
         ))}
@@ -75,13 +72,11 @@ function SharepalCalendarMonth({
   month,
   deliveryDate,
   pickupDate,
-  activeField,
   onSelect,
 }: {
   month: Date;
   deliveryDate: Date;
   pickupDate: Date | undefined;
-  activeField: "delivery" | "pickup";
   onSelect: (date: Date) => void;
 }) {
   const days = eachDayOfInterval({
