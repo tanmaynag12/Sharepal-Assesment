@@ -7,6 +7,7 @@ import vrImage from "../../assets/vr-category.webp";
 import racingImage from "../../assets/racing-category.webp";
 import screenImage from "../../assets/screen-category.webp";
 import gtaImage from "../../assets/gta-category.webp";
+import sharepalLogo from "../../assets/sharepal-navigation-logo.png";
 
 const products = productData.products || [];
 const sidebarCategories = [
@@ -179,6 +180,17 @@ export function SharepalGamingProductGrid({
       category: "VR Gear",
       text: "Great range of gaming products and very simple booking process. Would definitely rent again.",
     },
+  ];
+  const footerCategories = [
+    ["Action Cameras", "Action Cameras", "Pocket Cameras", "GoPro Cameras", "DJI Cameras", "DJI Drones", "360 Cameras"],
+    ["Cameras", "DSLR Cameras", "Cameras", "iPhones", "DSLR Gimbal Combos", "Wildlife Photography", "Tripod and camera accessories"],
+    ["Trekking Gear", "Trekking Gear", "Trekking Jackets", "Trek/Snow Pants", "Trekking Shoes", "Trek Accessories"],
+    ["Riding Gear", "Riding Gear", "Riding Luggage", "Riding Jackets", "Riding Essentials", "Riding Boots", "Binoculars"],
+    ["Creator Gear", "Wireless & Collar Mics", "Professional Cameras", "Mirrorless Cameras", "UNLMTD Vlogging", "Mobile Gimbals", "Vlogging"],
+    ["Gaming Console", "PS5 Console", "VR", "Racing Wheel", "Big Screen Gaming", "Xbox Console"],
+    ["Winter Wear", "Snow Boots", "Winter Jackets", "Backpacks"],
+    ["Camping Gear", "Camping Gear", "Camping Stools & Tables", "Camping Tents", "Sleeping Bags & Mats"],
+    ["Audio Visual Equipment", "Projectors", "VR", "Mics", "Speakers"],
   ];
 
   return (
@@ -428,6 +440,76 @@ export function SharepalGamingProductGrid({
             <span>Products In Circulation</span>
           </div>
         </section>
+
+        <footer className="sharepal-footer">
+          <div className="sharepal-footer-categories">
+            {footerCategories.map(([title, ...items]) => (
+              <div className="sharepal-footer-category" key={title}>
+                <h3>{title}</h3>
+                {items.map((item) => (
+                  <a href="#footer" key={`${title}-${item}`}>{item}</a>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="sharepal-footer-main">
+            <div className="sharepal-footer-brand">
+              <img src={sharepalLogo} alt="SharePal" />
+            </div>
+            <div className="sharepal-footer-columns">
+              <div>
+                <h3>Sharepal</h3>
+                <a href="#footer">About</a>
+                <a href="#footer">Why SharePal</a>
+                <a href="#footer">Sitemap</a>
+                <a href="#footer">CarePal</a>
+              </div>
+              <div>
+                <h3>Become a Pal</h3>
+                <a href="#footer">Sharepal for Creators</a>
+                <a href="#footer">Careers</a>
+                <a href="#footer">Sharepal for Brands</a>
+                <a href="#footer">Asset Funding Program <b>New</b></a>
+                <a href="#footer">Rent Your Gear <b>New</b></a>
+              </div>
+              <div>
+                <h3>Information</h3>
+                <a href="#footer">How it works?</a>
+                <a href="#footer">FAQs</a>
+                <a href="#footer">Verification</a>
+                <a href="#footer">Cancellation Policy</a>
+                <a href="#footer">Life at Sharepal</a>
+              </div>
+              <div>
+                <h3>Policies</h3>
+                <a href="#footer">Terms &amp; Condition</a>
+                <a href="#footer">Shipping policy</a>
+                <a href="#footer">Damage Policy</a>
+                <a href="#footer">Terms of Use</a>
+                <a href="#footer">Privacy Policy</a>
+              </div>
+              <div>
+                <h3>Need Help</h3>
+                <a href="#footer">♧ Contact Support</a>
+                <a href="#footer">Contact Us</a>
+                <a href="mailto:care@sharepal.in">✉ care@sharepal.in</a>
+                <div className="sharepal-footer-socials">
+                  <a href="#footer" aria-label="Facebook">f</a>
+                  <a href="#footer" aria-label="Instagram">◎</a>
+                  <a href="#footer" aria-label="LinkedIn">in</a>
+                </div>
+              </div>
+            </div>
+            <div className="sharepal-footer-bottom">
+              <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+                Go up　⌃
+              </button>
+              <span>© 2026. SWNAC E-Kiraya Services Pvt Ltd</span>
+              <span>Made with <b>♥</b> for India</span>
+            </div>
+          </div>
+        </footer>
       </div>
 
       {moreFaqOpen && (
