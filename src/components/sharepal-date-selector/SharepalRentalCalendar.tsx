@@ -22,6 +22,7 @@ export function SharepalRentalCalendar({
   month,
   deliveryDate,
   pickupDate,
+  activeField,
   onSelect,
   onPrevious,
   onNext,
@@ -29,12 +30,17 @@ export function SharepalRentalCalendar({
   month: Date;
   deliveryDate: Date;
   pickupDate: Date | undefined;
+  activeField: "delivery" | "pickup";
   onSelect: (date: Date) => void;
   onPrevious: () => void;
   onNext: () => void;
 }) {
   return (
-    <div className="relative mx-auto min-w-[610px]">
+    <div
+      className="relative mx-auto min-w-[610px]"
+      role="group"
+      aria-label={`Rental date calendar, selecting ${activeField} date`}
+    >
       <Button
         variant="outline"
         size="icon"
@@ -93,7 +99,7 @@ function SharepalCalendarMonth({
   const visibleDays = days.slice(0, 42);
 
   return (
-    <div>
+    <div role="group" aria-label={format(month, "MMMM yyyy")}>
       <h2 className="flex h-10 items-center justify-center text-base font-semibold">
         {format(month, "MMMM yyyy")}
       </h2>
@@ -123,8 +129,10 @@ function SharepalCalendarMonth({
           return (
             <Button
               key={day.toISOString()}
+              type="button"
               variant="ghost"
               aria-label={format(day, "EEEE, MMMM do, yyyy")}
+              aria-pressed={start || end}
               disabled={disabled}
               onClick={() => onSelect(day)}
               className={`h-[46px] min-w-0 rounded-none p-0 text-sm shadow-none disabled:opacity-35 ${rangeClass} ${outside && !start && !end && !middle ? "text-calendar-muted" : ""}`}

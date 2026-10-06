@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { addMonths, format, subMonths } from "date-fns";
 import { CalendarDays, CirclePercent, Info, X } from "lucide-react";
-import { useState } from "react";
-import { SharepalCategoryTabs } from "./components/sharepal-date-selector/SharepalCategoryTabs";
-import { SharepalDateField } from "./components/sharepal-date-selector/SharepalDateField";
 import { SharepalNavigationBar } from "./components/sharepal-date-selector/SharepalNavigationBar";
+import { SharepalCategoryTabs } from "./components/sharepal-date-selector/SharepalCategoryTabs";
+import { SharepalGamingProductGrid } from "./components/sharepal-date-selector/SharepalGamingProductGrid";
+import { SharepalDateField } from "./components/sharepal-date-selector/SharepalDateField";
 import { SharepalRentalCalendar } from "./components/sharepal-date-selector/SharepalRentalCalendar";
 import { Button } from "./components/ui/button";
-import { SharepalGamingProductGrid } from "./components/sharepal-date-selector/SharepalGamingProductGrid";
 import {
   getChargeablePeriod,
   getRentalDays,
@@ -21,14 +21,16 @@ export default function App() {
   const [pickupDate, setPickupDate] = useState();
   const [activeField, setActiveField] = useState("pickup");
   const [month, setMonth] = useState(new Date(2026, 9, 1));
+  const [gamingSelection, setGamingSelection] = useState("All");
+  const [targetProductId, setTargetProductId] = useState(null);
 
   const rentalDays = getRentalDays(deliveryDate, pickupDate);
+
   const chooseDate = (date) => {
     if (activeField === "delivery") {
       setDeliveryDate(date);
-      if (pickupDate && !isValidPickup(date, pickupDate)) {
+      if (pickupDate && !isValidPickup(date, pickupDate))
         setPickupDate(undefined);
-      }
       setActiveField("pickup");
       return;
     }
@@ -42,14 +44,31 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-background font-sans text-foreground">
+      {/* 1. Navigation Bar with city dropdown */}
       <SharepalNavigationBar
         deliveryDate={deliveryDate}
         pickupDate={pickupDate}
         onSelectDates={() => setOpen(true)}
+        onProductSelect={(product) => {
+          setGamingSelection("All");
+          setTargetProductId(product.id);
+        }}
       />
-      <SharepalCategoryTabs />
-      <SharepalGamingProductGrid />
 
+      {/* 2. Category tabs with dropdowns */}
+      <SharepalCategoryTabs
+        gamingSelection={gamingSelection}
+        onGamingSelectionChange={setGamingSelection}
+      />
+
+      {/* 3. Filtered gaming products */}
+      <SharepalGamingProductGrid
+        selection={gamingSelection}
+        onSelectionChange={setGamingSelection}
+        targetProductId={targetProductId}
+      />
+
+      {/* 4. Calendar dialog */}
       {open && (
         <div className="fixed inset-0 z-20 grid place-items-center overflow-y-auto bg-overlay/65 p-3 backdrop-blur-[3px] sm:p-7">
           <section
@@ -143,22 +162,26 @@ export default function App() {
                   </p>
                 </div>
 
-                <Button
-                  disabled={!pickupDate || rentalDays === 0}
-                  className="mt-5 h-12 w-full rounded-full bg-action text-base text-action-foreground shadow-none hover:bg-action/90 disabled:bg-disabled disabled:text-disabled-foreground disabled:opacity-100"
-                >
-                  Continue
-                </Button>
+                <div className="mt-5">
+                  <Button
+                    className="h-12 w-full rounded-[14px] bg-action text-base font-semibold text-action-foreground shadow-none hover:bg-action-hover"
+                    disabled={!pickupDate || rentalDays === 0}
+                    onClick={() => setOpen(false)}
+                  >
+                    Continue
+                  </Button>
+                </div>
               </div>
 
-              <div className="pointer-events-auto self-center overflow-x-auto rounded-[24px] bg-card p-3 sm:p-5">
+              <div className="rounded-[22px] border border-border bg-card p-4 sm:p-5">
                 <SharepalRentalCalendar
                   month={month}
                   deliveryDate={deliveryDate}
                   pickupDate={pickupDate}
+                  activeField={activeField}
                   onSelect={chooseDate}
-                  onPrevious={() => setMonth((value) => subMonths(value, 1))}
-                  onNext={() => setMonth((value) => addMonths(value, 1))}
+                  onPrevious={() => setMonth((prev) => subMonths(prev, 1))}
+                  onNext={() => setMonth((prev) => addMonths(prev, 1))}
                 />
               </div>
             </div>

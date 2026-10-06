@@ -182,6 +182,12 @@ a {
   width: 32px;
   height: 40px;
 }
+.sharepal-navigation-icon:hover {
+  box-shadow: inset 0 0 0 2px var(--navigation-outline);
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--foreground);
+}
 .sharepal-navigation-icon svg {
   width: 25px;
   height: 25px;
@@ -295,7 +301,447 @@ a {
   border-radius: 12px;
   background: var(--panel);
   color: var(--primary);
+}
+
+/* Product search drawer */
+.sharepal-search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: block;
+  background: rgb(15 23 42 / 42%);
+  backdrop-filter: blur(5px);
+}
+.sharepal-search-dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: 610px !important;
+  max-width: 610px !important;
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 24px 0 0 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow-modal);
+  animation: sharepal-search-slide-in 220ms ease-out;
+}
+.sharepal-search-dialog::-webkit-scrollbar {
+  display: none;
+}
+@keyframes sharepal-search-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.sharepal-search-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.sharepal-search-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.sharepal-search-close {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+}
+.sharepal-search-close {
+  padding: 0;
+}
+.sharepal-search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--muted-foreground);
+}
+.sharepal-search-input-wrap:focus-within {
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
+}
+.sharepal-search-input-wrap input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--foreground);
+}
+.sharepal-search-results {
+  padding: 6px 18px 28px;
+}
+.sharepal-search-section-title {
+  margin: 10px 0 16px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.sharepal-search-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sharepal-search-view-all {
+  margin: 10px 0 16px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+.sharepal-search-view-all:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sharepal-search-product-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.sharepal-search-product {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.sharepal-search-product img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: var(--card);
+  object-fit: contain;
+}
+.sharepal-search-product:hover img {
+  box-shadow: inset 0 0 0 2px var(--primary), var(--focus-ring);
+}
+.sharepal-search-product-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+}
+.sharepal-search-product-copy strong {
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 13px;
+}
+.sharepal-search-product-copy > span {
+  color: var(--muted-foreground);
+}
+.sharepal-search-booked {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--rating) !important;
+}
+.sharepal-search-empty {
+  padding: 32px 0;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .sharepal-search-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+    right: 0;
+    border-radius: 0;
+  }
+
+  /* Account drawer */
+  .sharepal-account-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(15 23 42 / 42%);
+    backdrop-filter: blur(5px);
+  }
+  .sharepal-account-dialog {
+    position: fixed;
+    inset: 0 0 0 auto;
+    display: flex;
+    width: 610px;
+    max-width: 610px;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 24px 0 0 24px;
+    background: var(--panel);
+    box-shadow: var(--shadow-modal);
+    animation: sharepal-search-slide-in 220ms ease-out;
+  }
+  .sharepal-account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 46px 30px 28px;
+  }
+  .sharepal-account-header h2 {
+    font-size: 36px;
+    font-weight: 800;
+  }
+  .sharepal-account-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--navigation-select);
+    color: var(--navigation-foreground);
+    font-weight: 700;
+  }
+  .sharepal-account-coupon {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0 30px;
+    padding: 16px 18px;
+    border: 1px solid #e4e9d9;
+    border-radius: 22px;
+    background: linear-gradient(110deg, #eef5ff, #f3ffe5);
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .sharepal-account-coupon-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #dbeafe;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .sharepal-account-coupon strong {
+    color: #ec4899;
+  }
+  .sharepal-account-coupon-max,
+  .sharepal-account-coupon-code {
+    font-weight: 700;
+  }
+  .sharepal-account-coupon-code {
+    margin-top: 8px;
+    color: #4b5563;
+    font-size: 14px;
+  }
+  .sharepal-account-spacer {
+    flex: 1;
+    min-height: 220px;
+    background: var(--panel);
+  }
+  .sharepal-account-partner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px;
+    padding: 16px 18px;
+    border: 0;
+    border-radius: 22px;
+    background: linear-gradient(110deg, #071446, #2455c9);
+    color: white;
+    text-align: left;
+  }
+  .sharepal-account-partner-icon {
+    display: grid;
+    place-items: center;
+    color: #caff00;
+  }
+  .sharepal-account-partner > span:nth-child(2) {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sharepal-account-partner strong {
+    color: #baff00;
+    font-size: 12px;
+  }
+  .sharepal-account-partner b {
+    font-size: 16px;
+  }
+  .sharepal-account-partner small {
+    color: #b7c3e8;
+    font-size: 12px;
+  }
+  .sharepal-account-partner > svg {
+    padding: 8px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #baff00;
+    color: #071446;
+  }
+  @media (max-width: 640px) {
+    .sharepal-account-dialog {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+    }
+    .sharepal-account-header {
+      padding: 40px 20px 24px;
+    }
+    .sharepal-account-coupon {
+      margin: 0 20px;
+    }
+    .sharepal-account-partner {
+      margin: 20px;
+    }
+  }
+
+  /* Account drawer */
+  .sharepal-account-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(15 23 42 / 42%);
+    backdrop-filter: blur(5px);
+  }
+  .sharepal-account-dialog {
+    position: fixed;
+    inset: 0 0 0 auto;
+    display: flex;
+    width: 610px;
+    max-width: 610px;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 24px 0 0 24px;
+    background: var(--panel);
+    box-shadow: var(--shadow-modal);
+    animation: sharepal-search-slide-in 220ms ease-out;
+  }
+  .sharepal-account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 46px 30px 28px;
+  }
+  .sharepal-account-header h2 {
+    font-size: 36px;
+    font-weight: 800;
+  }
+  .sharepal-account-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--navigation-select);
+    color: var(--navigation-foreground);
+    font-weight: 700;
+  }
+  .sharepal-account-coupon {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0 30px;
+    padding: 16px 18px;
+    border: 1px solid #e4e9d9;
+    border-radius: 22px;
+    background: linear-gradient(110deg, #eef5ff, #f3ffe5);
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .sharepal-account-coupon-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #dbeafe;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .sharepal-account-coupon strong {
+    color: #ec4899;
+  }
+  .sharepal-account-coupon-max,
+  .sharepal-account-coupon-code {
+    font-weight: 700;
+  }
+  .sharepal-account-coupon-code {
+    margin-top: 8px;
+    color: #4b5563;
+    font-size: 14px;
+  }
+  .sharepal-account-spacer {
+    flex: 1;
+    min-height: 220px;
+    background: var(--panel);
+  }
+  .sharepal-account-partner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px;
+    padding: 16px 18px;
+    border: 0;
+    border-radius: 22px;
+    background: linear-gradient(110deg, #071446, #2455c9);
+    color: white;
+    text-align: left;
+  }
+  .sharepal-account-partner-icon {
+    display: grid;
+    place-items: center;
+    color: #caff00;
+  }
+  .sharepal-account-partner > span:nth-child(2) {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sharepal-account-partner strong {
+    color: #baff00;
+    font-size: 12px;
+  }
+  .sharepal-account-partner b {
+    font-size: 16px;
+  }
+  .sharepal-account-partner small {
+    color: #b7c3e8;
+    font-size: 12px;
+  }
+  .sharepal-account-partner > svg {
+    padding: 8px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #baff00;
+    color: #071446;
+  }
 }
 .sharepal-sidebar-icon-box img {
   width: 48px;
@@ -442,6 +888,9 @@ a {
   border: 0;
   border-radius: 12px;
   background: var(--card);
+}
+.sharepal-product-card:hover {
+  box-shadow: inset 0 0 0 2px var(--primary), var(--focus-ring);
 }
 .sharepal-product-tag {
   position: absolute;
@@ -1050,4 +1499,485 @@ button[aria-label="Next month"] svg {
   .sharepal-sidebar-icon-box .sharepal-gta-badge {
     transition: none;
   }
+}
+/* City selector modal */
+.sharepal-city-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+.sharepal-city-dialog {
+  position: relative;
+  width: min(768px, 100%);
+  border-radius: 22px;
+  background: #ffffff;
+  padding: 26px 32px 34px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+}
+.sharepal-city-dialog h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+}
+.sharepal-city-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 4px;
+  color: #64748b;
+}
+.sharepal-city-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.sharepal-city-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 22px 0 16px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.sharepal-city-divider::before,
+.sharepal-city-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+.sharepal-popular-cities {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.sharepal-popular-city {
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.sharepal-popular-city svg {
+  color: #64748b;
+}
+.sharepal-popular-city:hover {
+  background: #f1f5f9;
+}
+.sharepal-popular-city.sharepal-city-selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* Ensure the account panel is a right-side drawer on desktop. */
+.sharepal-account-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgb(15 23 42 / 42%);
+  backdrop-filter: blur(5px);
+}
+.sharepal-account-dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  display: flex;
+  width: 610px;
+  max-width: 610px;
+  height: 100vh;
+  flex-direction: column;
+  overflow-y: auto;
+  border-radius: 24px 0 0 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow-modal);
+  animation: sharepal-search-slide-in 220ms ease-out;
+}
+.sharepal-account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 46px 30px 28px;
+}
+.sharepal-account-header h2 {
+  font-size: 36px;
+  font-weight: 800;
+}
+.sharepal-account-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--navigation-select);
+  color: var(--navigation-foreground);
+  font-weight: 700;
+}
+.sharepal-account-coupon {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 30px;
+  padding: 16px 18px;
+  border: 1px solid #e4e9d9;
+  border-radius: 22px;
+  background: linear-gradient(110deg, #eef5ff, #f3ffe5);
+  font-size: 16px;
+  line-height: 1.45;
+}
+.sharepal-account-coupon-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #dbeafe;
+  font-size: 28px;
+  line-height: 1;
+}
+.sharepal-account-coupon strong {
+  color: #ec4899;
+}
+.sharepal-account-coupon-max,
+.sharepal-account-coupon-code {
+  font-weight: 700;
+}
+.sharepal-account-coupon-code {
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 14px;
+}
+.sharepal-account-spacer {
+  flex: 1;
+  min-height: 220px;
+}
+.sharepal-account-partner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px;
+  padding: 16px 18px;
+  border: 0;
+  border-radius: 22px;
+  background: linear-gradient(110deg, #071446, #2455c9);
+  color: white;
+  text-align: left;
+}
+.sharepal-account-partner-icon {
+  display: grid;
+  place-items: center;
+  color: #caff00;
+}
+.sharepal-account-partner > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+.sharepal-account-partner strong {
+  color: #baff00;
+  font-size: 12px;
+}
+.sharepal-account-partner b {
+  font-size: 16px;
+}
+.sharepal-account-partner small {
+  color: #b7c3e8;
+  font-size: 12px;
+}
+.sharepal-account-partner > svg {
+  padding: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #baff00;
+  color: #071446;
+}
+@media (max-width: 640px) {
+  .sharepal-account-dialog {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+  .sharepal-account-header {
+    padding: 40px 20px 24px;
+  }
+  .sharepal-account-coupon {
+    margin: 0 20px;
+  }
+  .sharepal-account-partner {
+    margin: 20px;
+  }
+}
+.sharepal-popular-city.sharepal-city-selected svg {
+  color: #1d4ed8;
+}
+.sharepal-other-cities {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 16px;
+}
+.sharepal-other-city-btn {
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sharepal-other-city-btn:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+/* Category dropdowns */
+.sharepal-category-menu {
+  position: relative;
+  z-index: 10;
+}
+.sharepal-category-dropdown {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  z-index: 11;
+  display: grid;
+  width: min(1260px, calc(100vw - 32px));
+  padding: 22px 32px;
+  transform: translateX(-50%);
+  border-radius: 0 0 24px 24px;
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.14);
+  border: 1px solid #e2e8f0;
+  border-top: none;
+}
+.sharepal-category-dropdown-photography {
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+}
+.sharepal-category-dropdown-gaming {
+  width: min(480px, calc(100vw - 32px));
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+}
+.sharepal-category-dropdown-outdoor {
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+}
+.sharepal-category-dropdown-entertainment {
+  width: min(240px, calc(100vw - 32px));
+  grid-template-columns: 1fr;
+}
+.sharepal-category-option {
+  min-height: 40px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.sharepal-category-option:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.sharepal-category-option-selected {
+  color: #2563eb;
+  font-weight: 700;
+  background: #eff6ff;
+}
+.sharepal-products-empty {
+  grid-column: 1 / -1;
+  padding: 56px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+}
+
+@media (max-width: 800px) {
+  .sharepal-city-dialog { padding: 24px 16px; }
+  .sharepal-popular-cities { grid-template-columns: repeat(3, 1fr); }
+  .sharepal-other-cities { grid-template-columns: repeat(2, 1fr); }
+  .sharepal-category-dropdown-photography,
+  .sharepal-category-dropdown-outdoor { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Fix Calendar Grid & 2-Month Columns without Tailwind */
+[role="dialog"] div:has(> button[aria-label="Previous month"]) {
+  position: relative;
+  min-width: 580px;
+}
+
+[role="dialog"] button[aria-label="Previous month"],
+[role="dialog"] button[aria-label="Next month"] {
+  position: absolute;
+  top: 4px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+
+[role="dialog"] button[aria-label="Previous month"] {
+  left: 8px;
+}
+
+[role="dialog"] button[aria-label="Next month"] {
+  right: 8px;
+}
+
+[role="dialog"] .grid-cols-2,
+[role="dialog"] .grid.grid-cols-2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+}
+
+[role="dialog"] .grid-cols-2 h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+[role="dialog"] .grid-cols-7,
+[role="dialog"] .grid.grid-cols-7 {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  text-align: center;
+}
+
+[role="dialog"] .grid-cols-7 > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+[role="dialog"] .grid-cols-7 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+[role="dialog"] .grid-cols-7 button:hover {
+  background: var(--background);
+}
+
+[role="dialog"] .grid-cols-7 button.bg-range {
+  background: var(--range) !important;
+  color: var(--range-foreground) !important;
+  font-weight: 700 !important;
+  border-radius: 7px !important;
+}
+
+[role="dialog"] .grid-cols-7 button.bg-range-soft {
+  background: var(--range-soft) !important;
+  border-radius: 0 !important;
+}
+
+.sharepal-navigation-logo img {
+  display: block;
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+}
+
+.sharepal-sidebar-icon-box {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.sharepal-sidebar-icon-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 200ms ease;
+}
+
+.sharepal-sidebar-item:hover .sharepal-sidebar-icon-box img {
+  transform: scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sharepal-sidebar-icon-box img {
+    transition: none;
+  }
+}
+
+/* Keep the category list usable while the product page continues scrolling. */
+@media (min-width: 801px) {
+  .sharepal-sidebar {
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sharepal-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Make dates before today visibly unavailable without Tailwind utilities. */
+[role="dialog"] .grid-cols-7 button:disabled {
+  color: var(--disabled-foreground) !important;
+  opacity: 0.45 !important;
+  cursor: not-allowed;
 }
