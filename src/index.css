@@ -273,6 +273,14 @@ a {
   gap: 32px;
   align-items: start;
 }
+
+.sharepal-below-products {
+  width: 100%;
+  max-width: 1256px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
 .sharepal-sidebar {
   width: 120px;
   margin-top: 12px;
@@ -1385,6 +1393,324 @@ button[aria-label="Close date selector"] svg {
   color: var(--muted-foreground);
   font-size: 14px;
 }
+
+.sharepal-faq {
+  margin: 64px 0 48px;
+  padding: 46px 40px 64px;
+  border-radius: 24px;
+  background: var(--card);
+}
+
+.sharepal-faq h2 {
+  color: var(--foreground);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sharepal-faq-list {
+  margin-top: 22px;
+}
+
+.sharepal-faq-item {
+  border-bottom: 1px solid transparent;
+}
+
+.sharepal-faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  padding: 17px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sharepal-faq-question > span:last-child {
+  color: #64748b;
+  font-size: 18px;
+}
+
+.sharepal-faq-question:hover {
+  background: #f8fafc;
+}
+
+.sharepal-faq-answer {
+  margin: -4px 16px 10px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sharepal-faq-more {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #f1f3f5;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sharepal-faq-more:hover {
+  background: #e7ebef;
+}
+
+.sharepal-faq-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgb(15 23 42 / 42%);
+  backdrop-filter: blur(5px);
+}
+
+.sharepal-faq-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(610px, 100%);
+  height: 100vh;
+  overflow-y: auto;
+  background: #f1f3f5;
+  box-shadow: var(--shadow-modal);
+  animation: sharepal-search-slide-in 220ms ease-out;
+}
+
+.sharepal-faq-drawer-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 64px;
+  padding: 0 24px;
+  border-bottom: 1px solid #dbe1e8;
+  background: var(--card);
+}
+
+.sharepal-faq-drawer-header button {
+  width: 30px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sharepal-faq-drawer-header h2 {
+  color: var(--foreground);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.sharepal-faq-drawer-list {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.sharepal-faq-drawer-item {
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.sharepal-faq-drawer-item > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 18px;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sharepal-faq-drawer-item > button > span:last-child {
+  flex-shrink: 0;
+  color: #64748b;
+  font-size: 18px;
+}
+
+.sharepal-faq-drawer-item .sharepal-faq-answer {
+  margin: -2px 16px 16px;
+}
+
+.sharepal-testimonials {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin: 0;
+  transform: translateX(-50%);
+  padding: 54px 0 72px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.sharepal-testimonials h2 {
+  margin-bottom: 42px;
+  color: var(--foreground);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 800;
+  text-align: center;
+}
+
+.sharepal-testimonials h2 span {
+  color: #ed641c;
+}
+
+.sharepal-testimonials-window {
+  width: 100%;
+  overflow: hidden;
+}
+
+.sharepal-testimonials-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: sharepal-testimonials-scroll 34s linear infinite;
+}
+
+.sharepal-testimonials-window:hover .sharepal-testimonials-track {
+  animation-play-state: paused;
+}
+
+.sharepal-testimonial-card {
+  display: flex;
+  width: 360px;
+  min-height: 224px;
+  flex-direction: column;
+  padding: 18px 18px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.sharepal-testimonial-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sharepal-testimonial-rating span {
+  color: #ea4335;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.sharepal-testimonial-rating b {
+  color: #f2ad13;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.sharepal-testimonial-text {
+  margin-top: 13px;
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.sharepal-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.sharepal-testimonial-author > span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #dbe4ff;
+  color: #3158bd;
+  font-weight: 700;
+}
+
+.sharepal-testimonial-author div {
+  display: grid;
+  gap: 3px;
+}
+
+.sharepal-testimonial-author strong {
+  color: #334155;
+  font-size: 14px;
+}
+
+.sharepal-testimonial-author small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.sharepal-impact-stats {
+  position: relative;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100vw;
+  margin: 0;
+  padding: 42px 40px 62px;
+  border-top: 1px solid #e2e8f0;
+  background: var(--card);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.sharepal-impact-stats > div {
+  display: grid;
+  gap: 14px;
+  padding: 0 20px;
+}
+
+.sharepal-impact-stats > div + div {
+  border-left: 1px solid #e2e8f0;
+}
+
+.sharepal-impact-stats strong {
+  background: linear-gradient(100deg, #1551d8 48%, #65bd14 52%);
+  background-clip: text;
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 800;
+  line-height: 1;
+  -webkit-text-fill-color: transparent;
+}
+
+.sharepal-impact-stats span {
+  color: #475569;
+  font-size: 18px;
+}
+
+@keyframes sharepal-testimonials-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
 [role="dialog"] .shadow-field:not(button) > div:last-child {
   min-width: 0;
   margin-left: 0;
@@ -1618,6 +1944,39 @@ button[aria-label="Next month"] svg {
   }
   .sharepal-content-column {
     width: 100%;
+  }
+  .sharepal-below-products {
+    padding: 0 16px 40px;
+  }
+  .sharepal-faq {
+    margin-top: 40px;
+    padding: 32px 18px 42px;
+  }
+  .sharepal-faq h2 {
+    font-size: 20px;
+  }
+  .sharepal-testimonials {
+    width: 100%;
+    margin: 0;
+    padding: 40px 0 52px;
+  }
+  .sharepal-testimonials h2 {
+    padding: 0 20px;
+    font-size: 30px;
+  }
+  .sharepal-testimonial-card {
+    width: min(320px, calc(100vw - 40px));
+  }
+  .sharepal-impact-stats {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 36px 20px 48px;
+  }
+  .sharepal-impact-stats > div {
+    padding: 0;
+  }
+  .sharepal-impact-stats > div + div {
+    border-left: 0;
   }
   .sharepal-products-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2443,6 +2802,9 @@ button[aria-label="Next month"] svg {
 @media (prefers-reduced-motion: reduce) {
   .sharepal-chatbot,
   .sharepal-chatbot-accent {
+    animation: none;
+  }
+  .sharepal-testimonials-track {
     animation: none;
   }
 }

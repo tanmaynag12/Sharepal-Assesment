@@ -59,6 +59,9 @@ export function SharepalGamingProductGrid({
   targetProductId,
 }) {
   const [waitlistedProducts, setWaitlistedProducts] = useState(() => new Set());
+  const [openFaq, setOpenFaq] = useState();
+  const [moreFaqOpen, setMoreFaqOpen] = useState(false);
+  const [openMoreFaq, setOpenMoreFaq] = useState();
   const activeSelection = selection;
   const filteredProducts = products.filter((product) =>
     matchesSelection(product, activeSelection),
@@ -70,6 +73,14 @@ export function SharepalGamingProductGrid({
     );
     productCard?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [targetProductId]);
+  useEffect(() => {
+    if (!moreFaqOpen) return;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setMoreFaqOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [moreFaqOpen]);
   const heading =
     activeSelection === "All"
       ? "Gaming Gadgets On Rent"
@@ -83,8 +94,96 @@ export function SharepalGamingProductGrid({
     });
   };
 
+  const faqItems = [
+    {
+      question: "What is the storage capacity of the PS5?",
+      answer: "The PS5 comes with an 825 GB custom SSD.",
+    },
+    {
+      question: "Can I install my own games on this PS5?",
+      answer: "Yes, you can install compatible games on the console during your rental.",
+    },
+    {
+      question: "How can I rent from SharePal?",
+      answer: "Choose your dates, select a product, and continue to checkout.",
+    },
+    {
+      question:
+        "If I rent multiple products, do I need to extend the rental duration for all or partial extension is possible?",
+      answer: "You can extend individual products when extension availability permits.",
+    },
+    {
+      question: "When does the rental start?",
+      answer: "Your rental starts when the product is delivered to you.",
+    },
+  ];
+  const moreFaqItems = [
+    {
+      question: "Can I connect the PS5 to any smart TV or monitor?",
+      answer: "Yes, connect the PS5 to a compatible display using the included HDMI cable.",
+    },
+    {
+      question: "What will be the condition of the products at the time of delivery?",
+      answer: "Every product is checked, cleaned, and packed before it is delivered.",
+    },
+    {
+      question: "What games can I play on the PS5 console?",
+      answer: "You can play the games included with the selected product and compatible games you own.",
+    },
+    {
+      question: "Do you provide controllers and cables with the console?",
+      answer: "The included accessories are listed on each product card before you rent.",
+    },
+    {
+      question: "Can I cancel my rental after placing an order?",
+      answer: "Cancellation depends on the order status and the applicable rental policy.",
+    },
+    {
+      question: "Do you deliver gaming products to my area?",
+      answer: "Enter your city at the top of the page to check available delivery coverage.",
+    },
+  ];
+  const testimonials = [
+    {
+      initials: "SB",
+      name: "Satyaki",
+      location: "Kolkata",
+      category: "Gaming Gear",
+      text: "I would recommend SharePal for anyone looking to rent gaming gear. On-time delivery and great product condition.",
+    },
+    {
+      initials: "AS",
+      name: "Afrana",
+      location: "Bangalore",
+      category: "Gaming Console",
+      text: "Have used their services twice now. Quick responses, polite support, and hassle-free rentals.",
+    },
+    {
+      initials: "KK",
+      name: "Kanthikiran",
+      location: "Bangalore",
+      category: "Gaming Console",
+      text: "An amazing service with quality gear delivered to the doorstep. The staff is extremely helpful.",
+    },
+    {
+      initials: "AA",
+      name: "Aarav",
+      location: "Mumbai",
+      category: "PS5 Rental",
+      text: "The console arrived clean and ready to use. The entire rental experience was smooth and easy.",
+    },
+    {
+      initials: "RM",
+      name: "Riya",
+      location: "Pune",
+      category: "VR Gear",
+      text: "Great range of gaming products and very simple booking process. Would definitely rent again.",
+    },
+  ];
+
   return (
-    <div className="sharepal-main-container">
+    <>
+      <div className="sharepal-main-container">
       <aside className="sharepal-sidebar" aria-label="Gaming categories">
         {sidebarCategories.map((category) => (
           <button
@@ -119,7 +218,7 @@ export function SharepalGamingProductGrid({
               src="https://images.sharepal.in/categories/gaming-consoles/ps5/ps5-with-100-games-with-1-controller/ps5-with-100-games-with-1-controller-on-rent-sharepal-1.webp"
               alt="PlayStation console"
             />
-          </div>
+            </div>
           <div className="sharepal-hero-banner-center">
             <h1>Gaming Consoles</h1>
             <p>
@@ -236,12 +335,148 @@ export function SharepalGamingProductGrid({
 
             {filteredProducts.length === 0 && (
               <p className="sharepal-products-empty">
-                No matching products are included in the provided Gaming data.
+                No products found. Please contact us for registering your
+                product.
               </p>
             )}
           </div>
         </section>
+
       </div>
     </div>
+
+    <div className="sharepal-below-products">
+        <section className="sharepal-faq" aria-labelledby="sharepal-faq-title">
+          <h2 id="sharepal-faq-title">Frequently Asked Questions (FAQs)</h2>
+          <div className="sharepal-faq-list">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div className="sharepal-faq-item" key={item.question}>
+                  <button
+                    type="button"
+                    className="sharepal-faq-question"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenFaq(isOpen ? undefined : index)}
+                  >
+                    <span>{item.question}</span>
+                    <span aria-hidden="true">{isOpen ? "⌃" : "⌄"}</span>
+                  </button>
+                  {isOpen && (
+                    <p className="sharepal-faq-answer">{item.answer}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="sharepal-faq-more"
+            onClick={() => setMoreFaqOpen(true)}
+          >
+            View more FAQ&apos;s
+          </button>
+        </section>
+
+        <section
+          className="sharepal-testimonials"
+          aria-labelledby="sharepal-testimonials-title"
+        >
+          <h2 id="sharepal-testimonials-title">
+            Served more than <span>1 Lakh Orders</span>
+          </h2>
+          <div className="sharepal-testimonials-window">
+            <div className="sharepal-testimonials-track">
+              {[...testimonials, ...testimonials].map((review, index) => (
+                <article
+                  className="sharepal-testimonial-card"
+                  key={`${review.name}-${index}`}
+                >
+                  <div className="sharepal-testimonial-rating">
+                    <span>G</span>
+                    <b>★★★★★</b>
+                  </div>
+                  <p className="sharepal-testimonial-text">
+                    “{review.text}”
+                  </p>
+                  <div className="sharepal-testimonial-author">
+                    <span>{review.initials}</span>
+                    <div>
+                      <strong>{review.name}</strong>
+                      <small>
+                        {review.location} • {review.category}
+                      </small>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="sharepal-impact-stats" aria-label="SharePal impact">
+          <div>
+            <strong>250Cr+</strong>
+            <span>Saved Together</span>
+          </div>
+          <div>
+            <strong>4.5M Kg</strong>
+            <span>CO₂E Emissions Saved</span>
+          </div>
+          <div>
+            <strong>100K+</strong>
+            <span>Products In Circulation</span>
+          </div>
+        </section>
+      </div>
+
+      {moreFaqOpen && (
+        <div
+          className="sharepal-faq-drawer-overlay"
+          onMouseDown={() => setMoreFaqOpen(false)}
+        >
+          <aside
+            className="sharepal-faq-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="more-faq-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <header className="sharepal-faq-drawer-header">
+              <button
+                type="button"
+                aria-label="Close FAQs"
+                onClick={() => setMoreFaqOpen(false)}
+              >
+                ×
+              </button>
+              <h2 id="more-faq-title">FAQs</h2>
+            </header>
+            <div className="sharepal-faq-drawer-list">
+              {[...faqItems, ...moreFaqItems].map((item, index) => {
+                const isOpen = openMoreFaq === index;
+                return (
+                  <div className="sharepal-faq-drawer-item" key={item.question}>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() =>
+                        setOpenMoreFaq(isOpen ? undefined : index)
+                      }
+                    >
+                      <span>{item.question}</span>
+                      <span aria-hidden="true">{isOpen ? "⌃" : "⌄"}</span>
+                    </button>
+                    {isOpen && (
+                      <p className="sharepal-faq-answer">{item.answer}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </aside>
+        </div>
+      )}
+    </>
   );
 }
